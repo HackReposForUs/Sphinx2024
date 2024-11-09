@@ -27,7 +27,7 @@ function Gallery() {
 
     return (
         <div className="leftsection">
-            <span className="orange">TARSHDEEP KAUR</span> <span class="purple">is saying you a hello </span>
+            <span className="orange">We’re here to introduce <span class="purple">DigiNyay </span> ,an encrypted communication platform specifically designed for the legal industry. Lawyers and their assistants  face unique challenges with confidentiality and data protection</span> 
             <span id="element" ref={element}></span>
             <span className="typed-cursor typed-cursor--blink " aria-hidden="true">|</span>
         </div>

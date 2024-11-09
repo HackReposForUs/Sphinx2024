@@ -1,0 +1,99 @@
+/* General Page Layout */
+body{
+    height:100vh;
+    background-color: white;
+  }
+  .page-container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+     /* Light gray background */
+    margin: 0;
+  }
+  
+  .content-box {
+    text-align: center;
+    padding: 3rem;
+    width: 100%;
+    color:white;
+    max-width: 400px;
+    background: rgba( 0, 0, 0, 0.8 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 19px );
+    -webkit-backdrop-filter: blur( 19px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  }
+  /* Headline */
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  /* Buttons */
+  .generate-btn,
+  .join-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .generate-btn {
+    background-color: #3182ce; /* Blue */
+    color: white;
+  }
+  
+  .generate-btn:hover {
+    background-color: #2b6cb0; /* Darker blue on hover */
+  }
+  
+  .join-btn {
+    background-color:#2b6cb0; /* Green */
+    color: white;
+    margin-top: 1rem;
+  }
+  
+  .join-btn:hover {
+    background-color: #2b6cb0; /* Darker green on hover */
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Code Display */
+  .code-display {
+    margin-top: 1rem;
+  }
+  
+  .code-display p {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  /* Join Room Section */
+  .join-room {
+    margin-top: 1rem;
+  }
+  
+  .join-input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #cbd5e0; /* Light gray border */
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  /* Success Message */
+  .success-message {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2b6cb0; /* Green */
+    margin-top: 1rem;
+  }
+  

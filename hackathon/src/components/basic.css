@@ -1,0 +1,60 @@
+
+    
+
+
+
+    /* Centering and Styling */
+.page-container1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    margin: 0;
+  }
+  
+  .content-box {
+    text-align: center;
+    padding: 3rem 2rem;
+    max-width: 400px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(19px);
+    -webkit-backdrop-filter: blur(19px);
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  /* Join Room Section */
+  .join-room {
+    margin-top: 1rem;
+  }
+  
+  .join-input {
+    padding: 0.5rem 1rem;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .join-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background-color: #2b6cb0;
+    color: white;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+  
+  .join-btn:hover {
+    background-color: #2b6cb0;
+  }
+  
