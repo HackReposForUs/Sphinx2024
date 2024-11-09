@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './App.css'; // Import the custom CSS file
-import Navbar from './components/navbar';
+import '../styles/generatecode.css'; // Import the custom CSS file
+import Navbar from './navbar';
+import { BackgroundBeams } from './ui/backgroundBeams';
 
 const CodeGenerationPage = () => {
   const [code, setCode] = useState('');
@@ -29,6 +30,7 @@ const CodeGenerationPage = () => {
   return (
   
     <div className="page-container">
+      <BackgroundBeams />
    <Navbar/>
    <div className="page-container1">
       <div className="content-box">
@@ -52,7 +54,7 @@ const CodeGenerationPage = () => {
               type="text"
               value={joinCode}
               onChange={(e) => setJoinCode(e.target.value)}
-              className="join-input"
+              className="join-input text-black"
               placeholder="Enter code to join room"
             />
             <button onClick={joinRoom} className="join-btn">

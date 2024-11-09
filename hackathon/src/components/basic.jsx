@@ -1,9 +1,10 @@
 
 import React, { useState } from 'react';
-import './App.css'; // Import the custom CSS file
-import Navbar from './components/navbar';
+import '../styles/basic.css'; // Import the custom CSS file
+import Navbar from './navbar';
+import { BackgroundBeams } from './ui/backgroundBeams';
 
-const CodeGenerationPage = () => {
+const Basic = () => {
   const [joinCode, setJoinCode] = useState('');
 
   const joinRoom = () => {
@@ -13,6 +14,7 @@ const CodeGenerationPage = () => {
 
   return (
     <div className="page-container">
+      <BackgroundBeams />
       <Navbar/>
       <div className="page-container1">
         <div className="content-box">
@@ -35,4 +37,4 @@ const CodeGenerationPage = () => {
   );
 };
 
-export default CodeGenerationPage;
+export default Basic;
