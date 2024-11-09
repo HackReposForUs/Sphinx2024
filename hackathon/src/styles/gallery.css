@@ -5,19 +5,20 @@
     margin-left: 7rem;
     position: absolute;
     margin-top:-2rem;
-    width:550px;
-    color: hsl(185, 14%, 82%);
+    width:600px;
+    color: black;
+    text-align: left;
 }
 .purple{
-    color:hsl(185, 14%, 82%);
+    color:black;
 }
 #element{
-    color: hsl(185, 14%, 82%);
+    color: black;
     
 }
 .orange{
     
-    color: aqua;
+    color: black;
 }
 .typed-cursor {
     opacity: 1;

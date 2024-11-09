@@ -1,10 +1,11 @@
 .navbar{
-background-color: transparent;
+background-color: black;
 display: flex;
-height:7vh;
+height:8vh;
 box-sizing: border-box;
 overflow: hidden;
 width: 100vw;
+
 }
 
 .navbar-container {
@@ -13,11 +14,12 @@ list-style: none;
 display: flex;
 justify-content: center;
 align-items: center;
+
 }
 .navbar-container li a{
-    color:hsl(186 100% 69%);
+    color:white;
     text-decoration: none;
-    font-weight: 8000;
+    font-weight: 500;
     padding: 2.7rem;
 }
 
@@ -39,7 +41,7 @@ align-items: center;
 @import url("https://fonts.googleapis.com/css?family=Raleway");
 
 :root {
-  --glow-color: hsl(186 100% 69%);
+  --glow-color: white;
 }
 
 *,
