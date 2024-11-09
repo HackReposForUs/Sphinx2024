@@ -1,0 +1,30 @@
+.leftsection {
+    font-size: 1.5rem;
+    font-weight: 50;
+    flex-wrap: wrap;
+    margin-left: 7rem;
+    position: absolute;
+    margin-top:-2rem;
+    width:550px;
+    color: hsl(185, 14%, 82%);
+}
+.purple{
+    color:hsl(185, 14%, 82%);
+}
+#element{
+    color: hsl(185, 14%, 82%);
+    
+}
+.orange{
+    
+    color: aqua;
+}
+.typed-cursor {
+    opacity: 1;
+    animation: typedjsBlink 0.7s infinite;
+}
+
+@keyframes typedjsBlink {
+    50% { opacity: 0.0; }
+}
+
