@@ -32,7 +32,7 @@ function Gallery() {
             <span id="element" ref={element}></span>
             <span className="typed-cursor typed-cursor--blink " aria-hidden="true">|</span>
         </div>
-        <button className='blackBtn' >REGISTER</button>
+        <a href='/login' ><button className='blackBtn' >REGISTER</button></a>
         </div>
     );
 }

@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -7,16 +10,41 @@ export default function AuthPage() {
   const [isConnecting, setIsConnecting] = useState(false);
   const [error, setError] = useState('');
   const [metamaskRole, setMetamaskRole] = useState('user');
-    // const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email');
     const password = formData.get('password');
-    console.log(isLogin ? 'Logging in' : 'Signing up', { email, password, userType });
+    const confirmPassword = formData.get('confirmPassword');
+    const adminCode = formData.get('adminCode');
 
-    navigate('/dashboard');
+    const payload = {
+      email,
+      password,
+      userType,
+      // confirmPassword: !isLogin ? confirmPassword : undefined,
+      // adminCode: userType === 'admin' && !isLogin ? adminCode : undefined,
+    };
+
+    try {
+      const response = await axios.post(isLogin ? 'http://localhost:8001/login' : 'http://localhost:8001/signup', payload,{withCredentials: true});
+      const res = response.json;
+      console.log(res);
+      if(res.status === 200){
+        navigate(`${res.redirect}`);
+      }
+      else{
+        setError(res.error);
+        toast.error(res.error);
+      }
+    } catch (error) {
+      console.error('Failed to submit form:', error);
+      const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
+      setError(errorMessage);
+      toast.error(errorMessage);
+    }
   };
 
   const connectMetaMask = async () => {
@@ -25,19 +53,47 @@ export default function AuthPage() {
     if (typeof window.ethereum !== 'undefined') {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        console.log('Connected to MetaMask', accounts[0]);
+        const message = `Login request for address: ${accounts[0]}`;
+        const signature = await window.ethereum.request({
+                method: 'personal_sign',
+                params: [message, accounts[0]],
+            });
+        const payload = {
+          address: accounts[0],
+          role: metamaskRole,
+          loginType: 'metamask',
+          signature,
+          message
+        };
+
+        const response = await axios.post(isLogin ? 'http://localhost:8001/metamask-login' : 'http://localhost:8001/metamask-signup', payload, {withCredentials: true});
+        console.log('Connected to MetaMask', response.data);
+        const res = response.json;
+      console.log(res);
+      if(res.status === 200){
+        navigate(`${res.redirect}`);
+      }
+      else{
+        setError(res.error);
+        toast.error(res.error);
+      }
       } catch (error) {
         console.error('Failed to connect to MetaMask', error);
-        setError('Failed to connect to MetaMask. Please try again.');
+        const errorMessage = error.response?.data?.message || 'Failed to connect to MetaMask. Please try again.';
+        setError(errorMessage);
+        toast.error(errorMessage);
       }
     } else {
-      setError('MetaMask not detected. Please install MetaMask and try again.');
+      const noMetaMaskMessage = 'MetaMask not detected. Please install MetaMask and try again.';
+      setError(noMetaMaskMessage);
+      toast.error(noMetaMaskMessage);
     }
     setIsConnecting(false);
   };
 
   return (
     <div className="container">
+      <ToastContainer />
       <div className="card">
         <div className="card-header">
           <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>

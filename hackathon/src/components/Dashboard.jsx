@@ -39,7 +39,7 @@ const ChatDashboard = () => {
 
   const dataFetch = async () => {
     try {
-      const response = await fetch('./allData');
+      const response = await fetch('http://localhost:8001/allData');
       const result = await response.json();
 
       if (result.data && result.data.portals.length > 0) {

@@ -2,34 +2,65 @@ import React, { useState } from 'react';
 import '../styles/generatecode.css'; // Import the custom CSS file
 import Navbar from './navbar';
 import { BackgroundBeams } from './ui/backgroundBeams';
-
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 const CodeGenerationPage = () => {
   const [code, setCode] = useState('');
   const [roomCreated, setRoomCreated] = useState(false);
   const [joinCode, setJoinCode] = useState('');
   const [roomJoined, setRoomJoined] = useState(false);
+  const navigate = useNavigate();
 
-  const generateCode = () => {
+  const generateCode = async () => {
     // Generate a random code
-    const newCode = Math.random().toString(36).substr(2, 8).toUpperCase();
-    setCode(newCode);
-    setRoomCreated(true);
-    setRoomJoined(false); // Reset join room state when generating new room
+    try{
+      console.log("Generating code");
+      const response = await axios.post('http://localhost:8001/createRoom',{withCredentials: true});
+  
+      const res = response.data;
+  
+      if(res.status === 200){
+        setCode(res.code);
+      }
+      else{
+        toast.error(res.error || 'Failed to generate room');
+      }
+  
+      setRoomCreated(true);
+      setRoomJoined(false); // Reset join room state when generating new room
+    }
+    catch(error){
+      console.log(error);
+      toast.error(error);
+    }
   };
 
-  const joinRoom = () => {
-    if (joinCode === code) {
-      // If the join code matches the generated code, allow joining the room
-      setRoomJoined(true);
-    } else {
-      // Optionally, you can show an error if the code doesn't match
-      alert("Invalid code! Please try again.");
+  const joinRoom = async () => {
+    try{
+      const response = await axios.post('http://localhost:8001/joinRoom',{withCredentials: true});
+  
+      const res = response.data;
+  
+      if(res.status === 200 && joinCode === code ){
+        navigate(`${res.redirect}`);
+        setRoomJoined(true);
+      }
+      else{
+        toast.error(res.error || 'Failed to join room');
+      } 
+    }
+    catch(error){
+      console.log(error);
+      toast.error(error);
     }
   };
 
   return (
   
     <div className="page-container">
+      <ToastContainer />
       <BackgroundBeams />
    <Navbar/>
    <div className="page-container1">
