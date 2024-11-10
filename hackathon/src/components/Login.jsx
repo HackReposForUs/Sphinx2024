@@ -61,7 +61,7 @@ export default function AuthPage() {
         const payload = {
           address: accounts[0],
           role: metamaskRole,
-          loginType: 'metamask',
+          // loginType: 'metamask',
           signature,
           message
         };

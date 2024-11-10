@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const socket = io('http://localhost:8000'); //Connecting to the server
 
-const ChatApp = () => {
+const UserChat = () => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const [id, setId] = useState('');
@@ -185,4 +185,4 @@ const ChatApp = () => {
   )
 }
 
-export default ChatApp
+export default UserChat;
