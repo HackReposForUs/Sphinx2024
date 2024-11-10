@@ -1,99 +1,49 @@
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import Navbar from './navbar';
+import { BackgroundBeams } from './ui/backgroundBeams';
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [userType, setUserType] = useState('user');
   const [isConnecting, setIsConnecting] = useState(false);
   const [error, setError] = useState('');
   const [metamaskRole, setMetamaskRole] = useState('user');
-  const navigate = useNavigate();
 
-  const handleSubmit = async (event) => {
+    const navigate = useNavigate();
+  const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const email = formData.get('email');
     const password = formData.get('password');
-    const confirmPassword = formData.get('confirmPassword');
-    const adminCode = formData.get('adminCode');
-
-    const payload = {
-      email,
-      password,
-      userType,
-      // confirmPassword: !isLogin ? confirmPassword : undefined,
-      // adminCode: userType === 'admin' && !isLogin ? adminCode : undefined,
-    };
-
-    try {
-      const response = await axios.post(isLogin ? 'http://localhost:8001/login' : 'http://localhost:8001/signup', payload,{withCredentials: true});
-      const res = response.json;
-      console.log(res);
-      if(res.status === 200){
-        navigate(`${res.redirect}`);
-      }
-      else{
-        setError(res.error);
-        toast.error(res.error);
-      }
-    } catch (error) {
-      console.error('Failed to submit form:', error);
-      const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
-      setError(errorMessage);
-      toast.error(errorMessage);
+    console.log(isLogin ? 'Logging in' : 'Signing up', { email, password, userType });
+    if(userType === 'user'){
+      navigate('/joinRoom')
+    }
+    else{
+      navigate('/generateRoom')
     }
   };
-
   const connectMetaMask = async () => {
     setIsConnecting(true);
     setError('');
     if (typeof window.ethereum !== 'undefined') {
       try {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const message = `Login request for address: ${accounts[0]}`;
-        const signature = await window.ethereum.request({
-                method: 'personal_sign',
-                params: [message, accounts[0]],
-            });
-        const payload = {
-          address: accounts[0],
-          role: metamaskRole,
-          // loginType: 'metamask',
-          signature,
-          message
-        };
-
-        const response = await axios.post(isLogin ? 'http://localhost:8001/metamask-login' : 'http://localhost:8001/metamask-signup', payload, {withCredentials: true});
-        console.log('Connected to MetaMask', response.data);
-        const res = response.json;
-      console.log(res);
-      if(res.status === 200){
-        navigate(`${res.redirect}`);
-      }
-      else{
-        setError(res.error);
-        toast.error(res.error);
-      }
+        console.log('Connected to MetaMask', accounts[0]);
       } catch (error) {
         console.error('Failed to connect to MetaMask', error);
-        const errorMessage = error.response?.data?.message || 'Failed to connect to MetaMask. Please try again.';
-        setError(errorMessage);
-        toast.error(errorMessage);
+        setError('Failed to connect to MetaMask. Please try again.');
       }
     } else {
-      const noMetaMaskMessage = 'MetaMask not detected. Please install MetaMask and try again.';
-      setError(noMetaMaskMessage);
-      toast.error(noMetaMaskMessage);
+      setError('MetaMask not detected. Please install MetaMask and try again.');
     }
     setIsConnecting(false);
   };
-
   return (
-    <div className="container">
-      <ToastContainer />
+    <div>
+      <BackgroundBeams className="absolute z-0" />
+      <Navbar className="" />
+    <div className="container relative z-10">
       <div className="card">
         <div className="card-header">
           <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
@@ -107,7 +57,6 @@ export default function AuthPage() {
             </button>
           ))}
         </div>
-
         <div className="tab-content">
           {userType !== 'metamask' ? (
             <form onSubmit={handleSubmit}>
@@ -158,21 +107,20 @@ export default function AuthPage() {
             </div>
           )}
         </div>
-
         <div className="card-footer">
           <button onClick={() => setIsLogin(!isLogin)} className="toggle-btn">
             {isLogin ? "Don't have an account? Sign Up" : 'Already have an account? Login'}
           </button>
         </div>
       </div>
-
+      </div>
       <style jsx>{`
         .container {
           display: flex;
           align-items: center;
           justify-content: center;
           min-height: 100vh;
-          background-color: #f3f4f6;
+          // background-color: #f3f4f6;
         }
         .card {
           width: 100%;

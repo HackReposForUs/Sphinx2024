@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 import '../styles/basic.css'; // Import the custom CSS file
 import Navbar from './navbar';
 import { BackgroundBeams } from './ui/backgroundBeams';
+import { useNavigate } from 'react-router-dom';
 
 const Basic = () => {
   const [joinCode, setJoinCode] = useState('');
+  const navigate = useNavigate();
 
   const joinRoom = () => {
     // Add any functionality needed upon submitting the join code
     alert(`Attempting to join room with code: ${joinCode}`);
+    navigate('/userChat');
   };
 
   return (
@@ -24,7 +27,7 @@ const Basic = () => {
               type="text"
               value={joinCode}
               onChange={(e) => setJoinCode(e.target.value)}
-              className="join-input"
+              className="join-input text-black"
               placeholder="Enter code to join room"
             />
             <button onClick={joinRoom} className="join-btn">

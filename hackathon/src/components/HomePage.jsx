@@ -20,8 +20,8 @@ function InfoBox({ title, description, icon }) {
 export default function App() {
   return (
     <>
-      <BackgroundBeams />
-      <div className="app">
+      <BackgroundBeams className="absolute z-0" />
+      <div className="app absolute z-10">
         <Navbar />
         <main className="main">
           <div className="hello">
@@ -72,10 +72,7 @@ export default function App() {
       <h3>Quick Links</h3>
       <ul>
         <li><a href="#home" id="home-link">Home</a></li>
-        <li><a href="#about" id="about-link">About</a></li>
-        <li><a href="#contact" id="contact-link">Contact</a></li>
-        <li><a href="#privacy" id="privacy-link">Privacy Policy</a></li>
-        <li><a href="#terms" id="terms-link">Terms of Service</a></li>
+        <li><a href="/dashboard" id="about-link">Dashboard</a></li>
       </ul>
     </div>
 

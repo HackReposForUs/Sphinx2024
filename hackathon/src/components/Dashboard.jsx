@@ -5,6 +5,7 @@ import {
   GlowingStarsTitle,
 } from "./ui/glowing-stars";
 import { BackgroundBeams } from './ui/backgroundBeams';
+import Navbar from './navbar';
 
 const ChatDashboard = () => {
   const [portals, setPortals] = useState([]);
@@ -15,7 +16,7 @@ const ChatDashboard = () => {
   const sampleData = [
     {
       _id: '1',
-      querySubject: 'Sample Room 1',
+      querySubject: 'Room 1',
       querierId: 'user1',
       dateInitialized: '2024-01-01T10:00:00Z',
       dateQueryClosed: null,
@@ -26,7 +27,7 @@ const ChatDashboard = () => {
     },
     {
       _id: '2',
-      querySubject: 'Sample Room 2',
+      querySubject: 'Room 2',
       querierId: 'user3',
       dateInitialized: '2024-02-01T09:00:00Z',
       dateQueryClosed: null,
@@ -85,9 +86,10 @@ const ChatDashboard = () => {
   }, []);
 
   return (
-    <div>
+    <div className='overflow-hidden' >
       <BackgroundBeams />
-    <div className="dashboard-container p-6 min-h-screen relative z-20">
+      <Navbar />
+    <div className="dashboard-container p-6 min-h-screen relative z-20 top-20">
       <h2 className="text-2xl font-bold mb-6 selected-status">Available Chat Rooms</h2>
       {noQuery && !isOffline ? (
         <p className="null">No chat rooms available.</p>
@@ -102,20 +104,17 @@ const ChatDashboard = () => {
                 Initialized: {new Date(portal.dateInitialized).toLocaleString()}
               </GlowingStarsDescription>
               
-              <button
+              <a href='/userChat' > <button
                 className="join-room-btn mt-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-700"
                 onClick={() => handleJoinRoom(portal._id)}
               >
                 Join Room
-              </button>
+              </button></a>
             </GlowingStarsBackgroundCard>
           ))}
         </div>
       )}
 
-      {isOffline && (
-        <p className="text-red-500 mt-4">Backend is offline. Showing sample data.</p>
-      )}
     </div>
     </div>
   );
